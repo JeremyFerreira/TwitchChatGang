@@ -474,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 2
   currentSpeed: 0
-  speedMultiplier: 3
+  speedMultiplier: 1.1
 --- !u!4 &157650885
 Transform:
   m_ObjectHideFlags: 0
