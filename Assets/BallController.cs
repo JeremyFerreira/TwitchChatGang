@@ -11,6 +11,7 @@ public class BallController : MonoBehaviour
     [SerializeField] float speedMultiplier;
     [SerializeField] float boundaryRightX;
     [SerializeField] float boundaryLeftX;
+    public TrailRenderer trailRenderer;
     public void AddBallSpeed()
     {
         if(currentSpeed< maxSpeed)
@@ -33,17 +34,25 @@ public class BallController : MonoBehaviour
     {
         ballRB.velocity = ballRB.velocity.normalized * currentSpeed;
 
-        if(transform.position.x > boundaryRightX)
+        ResetBall();
+
+    }
+
+    public void ResetBall()
+    {
+        if (transform.position.x > boundaryRightX)
         {
             transform.position = Vector3.zero;
             LaunchBall();
+            trailRenderer.Clear();
         }
         if (transform.position.x < boundaryLeftX)
         {
             transform.position = Vector3.zero;
             LaunchBall();
+            trailRenderer.Clear();
         }
-
+        
     }
     public void LaunchBall()
     {
@@ -61,5 +70,6 @@ public class BallController : MonoBehaviour
         ballRB.velocity = randomDirection * startSpeed;
 
         currentSpeed = startSpeed;
+        
     }
 }
