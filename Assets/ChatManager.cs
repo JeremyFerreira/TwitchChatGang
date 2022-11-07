@@ -1,0 +1,67 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Sockets;
+using UnityEngine;
+
+public class ChatManager : MonoBehaviour
+{
+    private TcpClient twitchClient;
+    private StreamReader reader;
+    private StreamWriter writer;
+
+    string username = "Shtockk";
+    string password = "oauth:lc181elcx6e19o9kle2c0882huy4ep";
+    string channelName = "crocodyle_lol"; //Set to the channel you want ot get chat messages from
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Connect();
+    }
+
+    void Connect()
+    {
+        twitchClient = new TcpClient("irc.chat.twitch.tv", 6667);
+        reader = new StreamReader(twitchClient.GetStream());
+        writer = new StreamWriter(twitchClient.GetStream());
+
+        writer.WriteLine("PASS " + password);
+        writer.WriteLine("NICK " + username);
+        writer.WriteLine("USER " + username + " 8 * :" + username);
+        writer.WriteLine("JOIN #" + channelName);
+        writer.Flush();
+
+        Debug.Log("Connected to Twitch IRC");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (twitchClient == null || !twitchClient.Connected)
+        {
+            Connect();
+        }
+
+        ReadChat();
+    }
+
+    void ReadChat()
+    {
+        if (twitchClient.Available > 0)
+        {
+            string message = reader.ReadLine();
+            if (message.Contains("PRIVMSG"))
+            {
+                int splitPoint = message.IndexOf("!", 1);
+                string chatName = message.Substring(1, splitPoint - 1);
+
+                splitPoint = message.IndexOf(":", 1);
+                string chatMessage = message.Substring(splitPoint + 1);
+
+                GameManager.instance.RunFunction(chatName, chatMessage);
+            }
+        }
+    }
+}
