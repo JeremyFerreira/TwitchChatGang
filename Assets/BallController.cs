@@ -7,9 +7,10 @@ public class BallController : MonoBehaviour
     private Rigidbody2D ballRB;
     [SerializeField] float startSpeed;
     [SerializeField] float currentSpeed;
-    public void setBallSpeed(float speed)
+    [SerializeField] float speedMultiplier;
+    public void AddBallSpeed()
     {
-        currentSpeed = speed;
+        currentSpeed = currentSpeed*speedMultiplier;
     }
 
     // Start is called before the first frame update
