@@ -12,13 +12,17 @@ public class ChatManager : MonoBehaviour
     private StreamWriter writer;
 
     string username = "Shtockk";
-    string password = "oauth:lc181elcx6e19o9kle2c0882huy4ep";
+    string password = "oauth:rybuaw25d1wpkhxtrff2greot01t1u";
     string channelName = "crocodyle_lol"; //Set to the channel you want ot get chat messages from
 
     // Start is called before the first frame update
     void Start()
     {
         Connect();
+    }
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
     }
 
     void Connect()

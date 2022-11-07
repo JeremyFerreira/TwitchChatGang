@@ -18,30 +18,34 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
         _yellowPlayer = new List<string>();
         _redPlayer = new List<string>();
-        _yellowVote = new List<int>();
-        _redVote = new List<int>();
+        _yellowVote = new List<int>(8);
+        _redVote = new List<int>(8);
         _gameIsLaunch = false;
     }
     public void RunFunction(string user, string msg)
     {
+        Debug.Log($"{user} said \"{msg}\"");
         if (!_gameIsLaunch)
         {
             String str = msg;
-            if (str.Contains("crocoYELLOW"))
+            if (str.Contains("crocoYELLOW") && !_allPlayer.ContainsKey(user))
             {
                 _allPlayer.Add(user, "YELLOW");
                 _yellowPlayer.Add(user);
+                CanvasMenu.instance.AddYellowPlayer(user, _allPlayer.Count, _yellowPlayer.Count);
             }
-            else if (str.Contains("crocoRed"))
+            else if (str.Contains("crocoRED") && !_allPlayer.ContainsKey(user))
             {
                 _redPlayer.Add(user);
                 _allPlayer.Add(user, "RED");
+                CanvasMenu.instance.AddRedPlayer(user, _allPlayer.Count, _redPlayer.Count);
             }
         }
 
@@ -107,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     private void CalculVote()
     {
-        int yellowChoice = -1;
+        int yellowChoice = 0;
         for (int i = 0; i < _yellowVote.Count; i++)
         {
             if (_yellowVote[i] > _yellowVote[yellowChoice])
@@ -115,7 +119,7 @@ public class GameManager : MonoBehaviour
                 
         }
 
-        int redChoice = -1;
+        int redChoice = 0;
         for (int i = 0; i < _redVote.Count; i++)
         {
             if (_redVote[i] > _redVote[redChoice])
@@ -123,9 +127,10 @@ public class GameManager : MonoBehaviour
         }
 
         _playerVoted.Clear();
-        _redVote.Clear();
-        _yellowVote.Clear();
+        _yellowVote = new List<int>(8);
+        _redVote = new List<int>(8);
 
-       
+       PaddleController.instance.ChangePosPaddleLeft(yellowChoice);
+       PaddleController.instance.ChangePosPaddleRight(redChoice);
     }
 }
