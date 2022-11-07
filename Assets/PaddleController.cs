@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PaddleController : MonoBehaviour
 {
+    public static PaddleController instance;
     [SerializeField] Transform[] PositionsY;
     [SerializeField] Transform paddleLeft;
     [SerializeField] Transform paddleRight;
@@ -12,6 +13,10 @@ public class PaddleController : MonoBehaviour
     [Range(0, 7)]
     [SerializeField] int positionPaddleRight;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {

@@ -7,22 +7,29 @@ public class BallController : MonoBehaviour
     private Rigidbody2D ballRB;
     [SerializeField] float startSpeed;
     [SerializeField] float currentSpeed;
+    public void setBallSpeed(float speed)
+    {
+        currentSpeed = speed;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         ballRB = GetComponent<Rigidbody2D>();
 
-        //gets a random direction of the ball to start
-        Vector2 randomDirection = new Vector2(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
-        randomDirection.Normalize();
-
-        //check if the ball isnt going straight down or up
-        while (randomDirection == Vector2.up || randomDirection == Vector2.down)
+        //gets a random angle of the ball to start
+        float angle = Random.Range(1, 101);
+        float dir = Random.Range(-1, 1);
+        if(dir == 0)
         {
-            randomDirection = new Vector2(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
-            randomDirection.Normalize();
+            dir = 1;
         }
+
+        Vector2 randomDirection = new Vector2(dir,angle/100);
+        randomDirection.Normalize();
+        Debug.Log(randomDirection);
+
+        
         
         ballRB.velocity = randomDirection * startSpeed;
 
