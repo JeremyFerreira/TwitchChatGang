@@ -19,7 +19,7 @@ public class BallBouncePaddle : MonoBehaviour
     {
         if(collision.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody))
         {
-            AudioManager.instance.playSoundEffect(0,1);
+            AudioManager.instance.playSoundEffect(0,3);
             AudioManager.instance.ChangePitch(AudioManager.instance.GetPitch() * 1.1f);
             Vector2 velocity = rigidbody.velocity;
             float speed = velocity.magnitude;
