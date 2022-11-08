@@ -109,6 +109,7 @@ public class BallController : MonoBehaviour
         {
             timerText.text = "";
             isWaiting = false;
+            AudioManager.instance.playSoundEffect(2, 1);
             LaunchBall();
         }
     }
