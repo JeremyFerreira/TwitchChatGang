@@ -26,11 +26,13 @@ public class PaddleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangePosPaddleLeft(positionPaddleLeft);
-        ChangePosPaddleRight(positionPaddleRight);
+        //ChangePosPaddleLeft(positionPaddleLeft);
+        //ChangePosPaddleRight(positionPaddleRight);
     }
+    
     public void ChangePosPaddleLeft(int pos)
     {
+        Debug.Log("lel");
         paddleLeft.position = new Vector2(paddleLeft.position.x, PositionsY[pos].position.y);
     }
     public void ChangePosPaddleRight(int pos)

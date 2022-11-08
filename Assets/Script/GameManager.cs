@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     Dictionary<string, string> _allPlayer = new Dictionary<string, string>();
     bool _gameIsLaunch;
     Dictionary<string, int> _playerVoted = new Dictionary<string, int>();
+    Dictionary<string, int> _redVoted = new Dictionary<string, int>();
+    Dictionary<string, int> _yellowVoted = new Dictionary<string, int>();
     List<int> _yellowVote;
     List<int> _redVote;
 
@@ -24,7 +26,6 @@ public class GameManager : MonoBehaviour
     public void AddScoreRed()
     {
         scoreRed++;
-        Debug.Log(scoreRed);
     }
     public int scoreYellow;
     public int GetScoreYellow()
@@ -34,7 +35,6 @@ public class GameManager : MonoBehaviour
     public void AddScoreYellow()
     {
         scoreYellow++;
-        Debug.Log(scoreYellow);
     }
     private void Awake()
     {
@@ -46,8 +46,13 @@ public class GameManager : MonoBehaviour
     {
         _yellowPlayer = new List<string>();
         _redPlayer = new List<string>();
-        _yellowVote = new List<int>(8);
-        _redVote = new List<int>(8);
+        _yellowVote = new List<int>();
+        while (_yellowVote.Count < 8)
+            _yellowVote.Add(0);
+
+         _redVote = new List<int>(8);
+        while (_redVote.Count < 8)
+            _redVote.Add(0);
         _gameIsLaunch = false;
         scoreRed = 0;
         scoreYellow = 0;
@@ -117,6 +122,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         CalculVote();
+        StartCoroutine(Check());
     }
 
     private void Vote(string team, string user, int vote)
@@ -124,16 +130,19 @@ public class GameManager : MonoBehaviour
         _playerVoted.Add(user, vote);
         if (team == "RED")
         {
+            _redVoted.Add(user, vote);
             _redVote[vote]++;
         }
         if (team == "YELLOW")
         {
+            _yellowVoted.Add(user, vote);
             _yellowVote[vote]++;
         }
     }
 
     private void CalculVote()
     {
+
         int yellowChoice = 0;
         for (int i = 0; i < _yellowVote.Count; i++)
         {
@@ -149,11 +158,23 @@ public class GameManager : MonoBehaviour
                 redChoice = i;
         }
 
-        _playerVoted.Clear();
-        _yellowVote = new List<int>(8);
-        _redVote = new List<int>(8);
+        if (_playerVoted.Count > 0)
+        {
 
-       PaddleController.instance.ChangePosPaddleLeft(yellowChoice);
-       PaddleController.instance.ChangePosPaddleRight(redChoice);
+        if (_yellowVoted.Count > 0)
+            PaddleController.instance.ChangePosPaddleLeft(yellowChoice);
+        if (_redVoted.Count > 0)
+            PaddleController.instance.ChangePosPaddleRight(redChoice);
+        }
+        _yellowVoted.Clear();
+        _redVoted.Clear();
+        _playerVoted.Clear();
+        _yellowVote = new List<int>();
+        while (_yellowVote.Count < 8)
+            _yellowVote.Add(0);
+
+        _redVote = new List<int>();
+        while (_redVote.Count < 8)
+            _redVote.Add(0);
     }
 }

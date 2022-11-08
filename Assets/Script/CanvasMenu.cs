@@ -10,7 +10,7 @@ public class CanvasMenu : MonoBehaviour
     public static CanvasMenu instance;
     [SerializeField] GameObject YellowGO;
     [SerializeField] GameObject RedGo;
-    [SerializeField] GameObject PrefabButton;
+    [SerializeField] GameObject PrefabButton;    [SerializeField] GameObject redButton;
     [SerializeField] TextMeshProUGUI jaune;
     [SerializeField] TextMeshProUGUI rouge;
     [SerializeField] TextMeshProUGUI totalplayer;
@@ -35,17 +35,17 @@ public class CanvasMenu : MonoBehaviour
         GameObject go = Instantiate(PrefabButton, YellowGO.transform);
         go.GetComponentInChildren<Text>().text = name;
         go.transform.SetAsFirstSibling();
-        jaune.text = yellowamount.ToString();
-        totalplayer.text = total.ToString();
+        jaune.text = "X " + yellowamount.ToString();
+        totalplayer.text = "X " + total.ToString();
     }
 
     public void AddRedPlayer(string name, int total, int redamount)
     {
-        GameObject go = Instantiate(PrefabButton, RedGo.transform);
+        GameObject go = Instantiate(redButton, RedGo.transform);
         go.GetComponentInChildren<Text>().text = name;
         go.transform.SetAsFirstSibling();
-        rouge.text = redamount.ToString();
-        totalplayer.text = total.ToString();
+        rouge.text = "X " + redamount.ToString();
+        totalplayer.text = "X " + total.ToString();
     }
     public void OpenLevel()
     {
