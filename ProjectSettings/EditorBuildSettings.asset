@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: "Assets/FAb\xF9.unity"
+    path: "Assets/Scenes/FAb\xF9.unity"
     guid: 133a09cf27b88094c842a187a3cec50a
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
