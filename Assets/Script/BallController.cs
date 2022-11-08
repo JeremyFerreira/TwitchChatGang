@@ -24,7 +24,9 @@ public class BallController : MonoBehaviour
     public bool isWaiting;
     [SerializeField] float timerLaunch;
     [SerializeField] TextMeshProUGUI timerText;
-
+    [SerializeField] bool lastGoalRed;
+    [SerializeField] Transform kickoffRed;
+    [SerializeField] Transform kickoffYellow;
     public void AddBallSpeed()
     {
         if(currentSpeed< maxSpeed)
@@ -61,8 +63,9 @@ public class BallController : MonoBehaviour
     {
         if (transform.position.x > boundaryRightX)
         {
+            lastGoalRed = false;
             Instantiate(particleGoalRed, transform.position, Quaternion.identity);
-            transform.position = Vector3.zero;
+            transform.position = kickoffRed.position;
             ballRB.velocity = Vector3.zero; 
             trailRenderer.Clear();
 
@@ -75,8 +78,9 @@ public class BallController : MonoBehaviour
         }
         else if (transform.position.x < boundaryLeftX)
         {
+            lastGoalRed = true;
             Instantiate(particleGoalRed, transform.position, Quaternion.identity);
-            transform.position = Vector3.zero;
+            transform.position = kickoffYellow.position;
             ballRB.velocity = Vector3.zero;
             trailRenderer.Clear();
 
@@ -103,7 +107,7 @@ public class BallController : MonoBehaviour
     }
     public void Timer()
     {
-        timerLaunch -= Time.deltaTime;
+        timerLaunch -= Time.deltaTime*1.5f;
         timerText.text = ((int)timerLaunch + 1).ToString();
         if (timerLaunch < 0)
         {
@@ -117,11 +121,8 @@ public class BallController : MonoBehaviour
     {
         //gets a random angle of the ball to start
         float angle = Random.Range(-100, 101);
-        float dir = Random.Range(-1, 1);
-        if (dir == 0)
-        {
-            dir = 1;
-        }
+        float dir = lastGoalRed ? 1 : -1;
+        
 
         Vector2 randomDirection = new Vector2(dir, angle / 150);
         randomDirection.Normalize();
