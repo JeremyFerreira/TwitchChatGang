@@ -3123,7 +3123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -6543,12 +6542,10 @@ MonoBehaviour:
   - {fileID: 8147859}
   paddleLeft: {fileID: 1653040741}
   paddleRight: {fileID: 249990624}
-  positionPaddleLeft: 4
-  positionPaddleRight: 4
   posToGoRight: {x: 0, y: 0}
   posToGoLeft: {x: 0, y: 0}
   timeSinceLastMove: 0
-  speed: 5
+  speed: 1
 --- !u!4 &1912937557
 Transform:
   m_ObjectHideFlags: 0

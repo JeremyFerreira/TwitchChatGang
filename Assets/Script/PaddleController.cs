@@ -9,10 +9,6 @@ public class PaddleController : MonoBehaviour
     [SerializeField] Transform[] PositionsY;
     [SerializeField] Transform paddleLeft;
     [SerializeField] Transform paddleRight;
-    [Range(0, 7)]
-    [SerializeField] int positionPaddleLeft;
-    [Range(0, 7)]
-    [SerializeField] int positionPaddleRight;
     [SerializeField] Vector2 posToGoRight;
     [SerializeField] Vector2 posToGoLeft;
     public float timeSinceLastMove;
@@ -31,11 +27,10 @@ public class PaddleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeSinceLastMove < 1)
+        if(timeSinceLastMove < 1)
         {
-            Debug.Log("yo");
-            paddleLeft.transform.position = new Vector2(paddleLeft.transform.position.x, Vector2.Lerp(transform.position, posToGoLeft, timeSinceLastMove).y);
-            paddleRight.transform.position = new Vector2(paddleRight.transform.position.x, Vector2.Lerp(transform.position, posToGoRight, timeSinceLastMove).y);
+            paddleLeft.transform.position = new Vector2(paddleLeft.transform.position.x, Vector2.Lerp(paddleLeft.transform.position, posToGoLeft, timeSinceLastMove).y);
+            paddleRight.transform.position = new Vector2(paddleRight.transform.position.x,Vector2.Lerp(paddleRight.transform.position, posToGoRight, timeSinceLastMove).y);
             timeSinceLastMove += Time.deltaTime * speed;
         }
         else
@@ -51,7 +46,7 @@ public class PaddleController : MonoBehaviour
     }
     public void ChangePosPaddleRight(int pos)
     {
-        posToGoRight = new Vector2(paddleRight.position.x, PositionsY[pos].position.y);
+        posToGoRight = new Vector2(paddleRight.position.x,PositionsY[pos].position.y);
         timeSinceLastMove = 0;
     }
 }
