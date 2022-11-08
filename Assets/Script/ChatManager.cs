@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class ChatManager : MonoBehaviour
 {
+    public static ChatManager instance;
     private TcpClient twitchClient;
     private StreamReader reader;
     private StreamWriter writer;
@@ -22,6 +23,8 @@ public class ChatManager : MonoBehaviour
     }
     private void Awake()
     {
+        if (instance != null && instance != this)
+            Destroy(gameObject);
         DontDestroyOnLoad(this);
     }
 

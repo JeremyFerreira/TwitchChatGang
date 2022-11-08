@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,15 +18,28 @@ public class GameManager : MonoBehaviour
     Dictionary<string, int> _yellowVoted = new Dictionary<string, int>();
     List<int> _yellowVote;
     List<int> _redVote;
+    int maxScore;
 
     public int scoreRed;
     public int GetScoreRed()
     {
         return scoreRed;
     }
+
+    public void OpenMenu()
+    {
+        SceneManager.LoadScene("Menu");
+        _gameIsLaunch = false;
+        Time.timeScale = 1;
+
+    }
     public void AddScoreRed()
     {
-        scoreRed++;
+        
+            if (scoreRed + 1 == maxScore)
+                Win(false);
+            else
+            scoreRed++;
     }
     public int scoreYellow;
     public int GetScoreYellow()
@@ -34,13 +48,26 @@ public class GameManager : MonoBehaviour
     }
     public void AddScoreYellow()
     {
+        if (scoreYellow + 1 == maxScore)
+            Win(false);
+        else
         scoreYellow++;
+    }
+    public void Win(bool redwin)
+    {
+        UIManager.Instance.Win(redwin);
+        StopAllCoroutines();
+        Time.timeScale = 0;
     }
     private void Awake()
     {
+        if (instance != null && instance != this)
+            Destroy(gameObject);    // Suppression d'une instance précédente (sécurité...sécurité...)
+
         instance = this;
         DontDestroyOnLoad(this);
     }
+
 
     private void Start()
     {
@@ -112,8 +139,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LaunchGame()
+    public void LaunchGame(int maxRound)
     {
+        maxScore = maxRound;
         _gameIsLaunch = true;
         StartCoroutine(Check());
     }

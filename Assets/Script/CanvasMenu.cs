@@ -50,6 +50,6 @@ public class CanvasMenu : MonoBehaviour
     public void OpenLevel()
     {
         SceneManager.LoadScene("SampleScene");
-        GameManager.instance.LaunchGame();
+        GameManager.instance.LaunchGame(5);
     }
 }

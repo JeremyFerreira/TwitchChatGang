@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
     [SerializeField] GameObject PauseUI;
     [SerializeField] bool isPaused;
+    [SerializeField] GameObject PanelWin;
+    [SerializeField] Image ImageWin;
+    [SerializeField] Sprite Yellow;
+    [SerializeField] Sprite red;
+    [SerializeField] TextMeshProUGUI textWin;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +23,30 @@ public class UIManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1.0f;
     }
+    private void Awake()
+    {
+        Instance = this;
+    }
 
+    public void OpenMenu()
+    {
+        GameManager.instance.OpenMenu();
+    }
+    public void Win(bool redWin)
+    {
+        if (redWin)
+        {
+            textWin.text = "TEAM ROUGE GAGNE !!!";
+            ImageWin.sprite = red;
+        }
+        else
+        {
+            textWin.text = "TEAM JAUNE GAGNE !!!";
+            ImageWin.sprite = Yellow;
+        }
+
+        PanelWin.SetActive(true);
+    }
     // Update is called once per frame
     void Update()
     {
