@@ -15,6 +15,27 @@ public class GameManager : MonoBehaviour
     Dictionary<string, int> _playerVoted = new Dictionary<string, int>();
     List<int> _yellowVote;
     List<int> _redVote;
+
+    public int scoreRed;
+    public int GetScoreRed()
+    {
+        return scoreRed;
+    }
+    public void AddScoreRed()
+    {
+        scoreRed++;
+        Debug.Log(scoreRed);
+    }
+    public int scoreYellow;
+    public int GetScoreYellow()
+    {
+        return scoreYellow;
+    }
+    public void AddScoreYellow()
+    {
+        scoreYellow++;
+        Debug.Log(scoreYellow);
+    }
     private void Awake()
     {
         instance = this;
@@ -28,6 +49,8 @@ public class GameManager : MonoBehaviour
         _yellowVote = new List<int>(8);
         _redVote = new List<int>(8);
         _gameIsLaunch = false;
+        scoreRed = 0;
+        scoreYellow = 0;
     }
     public void RunFunction(string user, string msg)
     {
