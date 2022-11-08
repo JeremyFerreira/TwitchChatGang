@@ -20,6 +20,8 @@ public class BallBounceWall : MonoBehaviour
     {
         if (collision.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody))
         {
+            AudioManager.instance.playSoundEffect(0, 1);
+            AudioManager.instance.ChangePitch(AudioManager.instance.GetPitch()*1.05f);
             Vector2 velocity = rigidbody.velocity;
             velocity = Vector2.Reflect(velocity, Vector2.up);
             rigidbody.velocity = velocity;

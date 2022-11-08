@@ -36,7 +36,11 @@ public class AudioManager : MonoBehaviour
 
     public void ChangePitch(float pitch)
     {
-        audioSourceMusic.pitch = pitch;
+        audioSourceSoundEffect.pitch = pitch;
+    }
+    public float GetPitch()
+    {
+        return audioSourceSoundEffect.pitch;
     }
 
     public void UpdateVolume()

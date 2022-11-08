@@ -70,10 +70,10 @@ public class BallController : MonoBehaviour
             timerLaunch = 3;
             isWaiting = true;
 
+            AudioManager.instance.ChangePitch(1);
             AddScore(false);
-            
         }
-        if (transform.position.x < boundaryLeftX)
+        else if (transform.position.x < boundaryLeftX)
         {
             Instantiate(particleGoalRed, transform.position, Quaternion.identity);
             transform.position = Vector3.zero;
@@ -82,7 +82,7 @@ public class BallController : MonoBehaviour
 
             timerLaunch = 3;
             isWaiting = true;
-
+            AudioManager.instance.ChangePitch(1);
             AddScore(true);
             
         }
