@@ -53,7 +53,6 @@ public class BallController : MonoBehaviour
         ResetBall();
         if(isWaiting)
         {
-            Debug.Log("yo");
             Timer();
         }
     }
@@ -71,6 +70,7 @@ public class BallController : MonoBehaviour
             isWaiting = true;
 
             AudioManager.instance.ChangePitch(1);
+            AudioManager.instance.playSoundEffect(1, 1);
             AddScore(false);
         }
         else if (transform.position.x < boundaryLeftX)
@@ -83,6 +83,7 @@ public class BallController : MonoBehaviour
             timerLaunch = 3;
             isWaiting = true;
             AudioManager.instance.ChangePitch(1);
+            AudioManager.instance.playSoundEffect(1, 1);
             AddScore(true);
             
         }

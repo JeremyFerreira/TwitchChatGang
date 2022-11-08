@@ -4896,6 +4896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffects:
   - {fileID: 8300000, guid: d7b94e05a9ba5e04b8433493f222e877, type: 3}
+  - {fileID: 8300000, guid: be6cdcda3863b37499c8d80a0d6c53b6, type: 3}
   music: []
   audioSourceSoundEffect: {fileID: 1351981303}
   audioSourceMusic: {fileID: 0}
